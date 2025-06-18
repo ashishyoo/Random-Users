@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import UserCard from "./UserCard";
 import ShimmerCards from "./Shimmer/ShimmerCards";
+import axios from "axios";
 
 const Users = () => {
   const [users, setUsers] = useState<IUser[]>([]);
@@ -13,10 +14,21 @@ const Users = () => {
   const fetchData = () => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch(
-          `https://randomuser.me/api/?inc=id,name,picture&page=${page}&results=20`
-        );
-        const { results } = await response.json();
+        // const response = await fetch(
+        //   `https://randomuser.me/api/?inc=id,name,picture&page=${page}&results=20`
+        // );
+        // const { results } = await response.json();
+
+        const response = await axios.get("https://randomuser.me/api/", {
+          params: {
+            inc: "id,name,picture",
+            page: page,
+            results: 20,
+          },
+        });
+
+        const results = response.data.results;
+
         setUsers((prevUsers: IUser[]) => [...prevUsers, ...results]);
         console.log(users);
       } catch (error) {
