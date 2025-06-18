@@ -14,11 +14,6 @@ const Users = () => {
   const fetchData = () => {
     const fetchUserData = async () => {
       try {
-        // const response = await fetch(
-        //   `https://randomuser.me/api/?inc=id,name,picture&page=${page}&results=20`
-        // );
-        // const { results } = await response.json();
-
         const response = await axios.get("https://randomuser.me/api/", {
           params: {
             inc: "id,name,picture",
